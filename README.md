@@ -20,3 +20,9 @@ window.HFUGUE_CONFIG = {
 ```
 
 未設定時，送出按鈕會自動下載 JSON 備份。
+
+
+## 本版更新
+
+- 修正嗅覺記憶圖中新生兒區塊文字。
+- 使用最新版 index / organ / wheel / manifest / service worker 檔案重新打包。
