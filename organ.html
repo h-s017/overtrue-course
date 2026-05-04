@@ -18,8 +18,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 .count-badge{font-size:11px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.07);padding:3px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.1)}
 .btn-add-header{background:var(--gold);color:var(--ink);border:none;padding:7px 15px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s;font-family:'DM Sans',sans-serif}
 .btn-add-header:hover{opacity:.82}
-.tabs-bar{background:var(--card);border-bottom:1px solid var(--border);display:flex;padding:0 28px;position:sticky;top:58px;z-index:55;overflow-x:auto}
-.tab-btn{padding:12px 18px;font-size:13px;font-weight:500;border:none;background:none;color:var(--ink-faint);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.tabs-bar{background:var(--card);border-bottom:1px solid var(--border);display:flex;padding:0 28px;position:sticky;top:58px;z-index:55}
+.tab-btn{padding:12px 20px;font-size:13px;font-weight:500;border:none;background:none;color:var(--ink-faint);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .tab-btn:hover{color:var(--ink-light)}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
 .tab-panel{display:none}
@@ -222,10 +222,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
   </div>
 </header>
 <div class="tabs-bar">
-  <button class="tab-btn active" id="tab-raw-db" onclick="switchTab('raw-db')">單體原料調香台</button>
-  <button class="tab-btn" id="tab-base-db" onclick="switchTab('base-db')">80 種香基調香台</button>
-  <button class="tab-btn" id="tab-raw-formula" onclick="switchTab('raw-formula')">單體原料配方表</button>
-  <button class="tab-btn" id="tab-base-formula" onclick="switchTab('base-formula')">香基配方表</button>
+  <button class="tab-btn active" id="tab-db" onclick="switchTab('db')">單體／香基庫</button>
+  <button class="tab-btn" id="tab-formula" onclick="switchTab('formula')">調香配方表</button>
 </div>
 <div class="tab-panel active" id="panel-db">
   <div class="toolbar-toggle-row"><button class="btn-toolbar-toggle" id="toolbar-toggle" onclick="toggleToolbar()">收合搜尋／篩選</button></div>
@@ -403,20 +401,14 @@ function mergeKPIABases(){
 }
 
 let db=[],openId=null,draft={},activeFilters=new Set(),allTypes=[];
-let currentGroup='raw';
 let nextId=100,sortKey='default',sortDirs={en:1,note:1,type:1};
-let formulas=[],currentFmlId=null,currentFmlIds={raw:null,base:null},deleteTarget=null,deleteType='ingredient';
+let formulas=[],currentFmlId=null,deleteTarget=null,deleteType='ingredient';
 let newNotes=[],fmlNextId=1;
-function isBaseItem(item){return Number(item.id)>=1000 || (item.type||[]).includes('香基');}
-function groupLabel(){return currentGroup==='base'?'香基':'單體原料';}
-function currentDb(){return db.filter(d=>currentGroup==='base'?isBaseItem(d):!isBaseItem(d));}
-function currentFormulas(){return formulas.filter(f=>currentGroup==='base'?f.group==='base':(!f.group||f.group==='raw'));}
-function syncCurrentId(){currentFmlIds[currentGroup]=currentFmlId;}
 function load(){
   try{const r=localStorage.getItem(DB_KEY);if(r){db=JSON.parse(r);migrate();}else{db=SEED.map(d=>({...d}));save();}}catch(e){db=SEED.map(d=>({...d}));}
   mergeKPIABases();
   nextId=Math.max(...db.map(d=>d.id),99)+1;
-  try{const r=localStorage.getItem(FML_KEY);if(r){formulas=JSON.parse(r);}formulas.forEach(f=>{if(!f.group)f.group='raw';(f.rows||[]).forEach(row=>{if(row.concentration===undefined)row.concentration='';if(row.unit===undefined)row.unit='g';if(row.amount===undefined)row.amount='';});});fmlNextId=Math.max(...formulas.map(f=>f.id),0)+1;}catch(e){formulas=[];}
+  try{const r=localStorage.getItem(FML_KEY);if(r){formulas=JSON.parse(r);}formulas.forEach(f=>(f.rows||[]).forEach(row=>{if(row.concentration===undefined)row.concentration='';}));fmlNextId=Math.max(...formulas.map(f=>f.id),0)+1;}catch(e){formulas=[];}
   refreshTypes();
 }
 function migrate(){db.forEach(d=>{if(!d.advisors){d.advisors=[];delete d.teacher;}});}
@@ -424,25 +416,19 @@ function save(){localStorage.setItem(DB_KEY,JSON.stringify(db));}
 function saveFml(){localStorage.setItem(FML_KEY,JSON.stringify(formulas));}
 let currentTab='db';
 function switchTab(tab){
-  currentGroup=tab.startsWith('base')?'base':'raw';
-  currentTab=tab.endsWith('formula')?'formula':'db';
-  currentFmlId=currentFmlIds[currentGroup]||null;
+  currentTab=tab;
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  const tabBtn=document.getElementById('tab-'+tab);if(tabBtn)tabBtn.classList.add('active');
-  document.getElementById(currentTab==='db'?'panel-db':'panel-formula').classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
   const hbtn=document.getElementById('header-action-btn');
-  hbtn.textContent=currentTab==='db'?'＋ 新增原料':'＋ 新配方';
-  activeFilters.clear();
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  refreshTypes();
-  if(currentTab==='db')renderGrid();
-  if(currentTab==='formula')renderFormulaList();
+  if(tab==='db'){hbtn.textContent='＋ 新增原料';}else{hbtn.textContent='＋ 新配方';}
+  if(tab==='formula')renderFormulaList();
 }
 function headerAction(){if(currentTab==='db')openNew();else newFormula();}
 function toggleToolbar(){const tb=document.getElementById('toolbar');const btn=document.getElementById('toolbar-toggle');if(!tb||!btn)return;tb.classList.toggle('is-collapsed');btn.textContent=tb.classList.contains('is-collapsed')?'展開搜尋／篩選':'收合搜尋／篩選';}
 function refreshTypes(){
-  allTypes=[...new Set(currentDb().flatMap(d=>d.type||[]))].sort();
+  allTypes=[...new Set(db.flatMap(d=>d.type||[]))].sort();
   const el=document.getElementById('type-chips');if(!el)return;
   el.innerHTML='<span class="tlabel">香調</span>'+allTypes.map(t=>`<button class="chip${activeFilters.has('type:'+t)?' active':''}" data-filter="type:${t}" onclick="toggleFilter(this)">${t}</button>`).join('');
 }
@@ -465,8 +451,8 @@ function sortItems(items){
 }
 function getFiltered(){
   const q=(document.getElementById('search')?.value||'').toLowerCase().trim();
-  return currentDb().filter(d=>{
-    const nf=[...activeFilters].filter(f=>f.startsWith('note:'));if(nf.length&&!nf.some(f=>(d.note||[]).includes(f.slice(5))))return false;
+  return db.filter(d=>{
+    const nf=[...activeFilters].filter(f=>f.startsWith('note:'));if(nf.length&&!nf.some(f=>d.note.includes(f.slice(5))))return false;
     const tf=[...activeFilters].filter(f=>f.startsWith('type:'));if(tf.length&&!tf.some(f=>(d.type||[]).includes(f.slice(5))))return false;
     if(q){const hay=[d.en,d.cn,...(d.alias||[]),d.cas||'',d.inci||''].join(' ').toLowerCase();if(!hay.includes(q))return false;}
     return true;
@@ -474,7 +460,7 @@ function getFiltered(){
 }
 function renderGrid(){
   const grid=document.getElementById('grid');
-  document.getElementById('count-badge').textContent=currentDb().length+' 種'+groupLabel();
+  document.getElementById('count-badge').textContent=db.length+' 種原料';
   const items=sortItems(getFiltered());
   if(!items.length){grid.innerHTML='<div class="empty-state"><div style="font-size:30px;margin-bottom:8px">⊘</div><p>沒有符合條件的原料</p></div>';return;}
   grid.innerHTML=items.map(d=>`<div class="card" onclick="openDrawer(${d.id})"><button class="card-del" onclick="event.stopPropagation();quickDeleteIngredient(${d.id})" title="刪除">✕</button><div class="card-num">#${d.id}</div><div class="card-en" title="${esc(d.en)}">${esc(d.en)}</div><div class="card-cn">${esc(d.cn||'')}</div><div class="card-meta">${(d.note||[]).map(n=>`<span class="badge badge-${n}">${n}</span>`).join('')}${(d.type||[]).map(t=>`<span class="badge badge-type">${t}</span>`).join('')}</div>${d.cas?`<div class="card-cas">${esc(d.cas)}</div>`:''}</div>`).join('');
@@ -511,35 +497,57 @@ function confirmDelete(){const d=db.find(x=>x.id===openId);deleteTarget=openId;d
 function quickDeleteIngredient(id){const d=db.find(x=>x.id===id);deleteTarget=id;deleteType='ingredient';document.getElementById('modal-del-msg').textContent=`即將刪除原料「${d?.en}」，此動作無法復原。`;openModal('modal-del');}
 function doDeleteCurrent(){
   if(deleteType==='ingredient'){db=db.filter(x=>x.id!==deleteTarget);save();refreshTypes();closeDrawer();closeModal('modal-del');renderGrid();}
-  else if(deleteType==='formula'){formulas=formulas.filter(f=>f.id!==deleteTarget);saveFml();closeModal('modal-del');if(currentFmlId===deleteTarget){currentFmlId=null;syncCurrentId();}renderFormulaList();document.getElementById('formula-main').innerHTML=currentFmlId?'':'<div class="formula-placeholder"><div class="ph-icon">✦</div><p>從左側選擇或新增配方</p></div>';}
+  else if(deleteType==='formula'){formulas=formulas.filter(f=>f.id!==deleteTarget);saveFml();closeModal('modal-del');if(currentFmlId===deleteTarget)currentFmlId=null;renderFormulaList();document.getElementById('formula-main').innerHTML=currentFmlId?'':'<div class="formula-placeholder"><div class="ph-icon">✦</div><p>從左側選擇或新增配方</p></div>';}
 }
 function openNew(){newNotes=[];['new-en','new-cn','new-cas','new-inci'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.querySelectorAll('#new-notes .tag-btn').forEach(b=>b.className='tag-btn');openModal('modal-new');}
 function toggleNewNote(btn){const n=btn.dataset.n,i=newNotes.indexOf(n);if(i>=0){newNotes.splice(i,1);btn.className='tag-btn';}else{newNotes.push(n);btn.className=`tag-btn active-${n}`;}}
-function doCreate(){const en=document.getElementById('new-en').value.trim();if(!en){document.getElementById('new-en').focus();return;}const item={id:nextId++,en,cn:document.getElementById('new-cn').value.trim(),note:[...newNotes],type:(currentGroup==='base'?['香基']:[]),alias:[],cas:document.getElementById('new-cas').value.trim(),inci:document.getElementById('new-inci').value.trim(),ifra:'',personal:'',advisors:[]};db.push(item);save();refreshTypes();closeModal('modal-new');renderGrid();setTimeout(()=>openDrawer(item.id),100);}
+function doCreate(){const en=document.getElementById('new-en').value.trim();if(!en){document.getElementById('new-en').focus();return;}const item={id:nextId++,en,cn:document.getElementById('new-cn').value.trim(),note:[...newNotes],type:[],alias:[],cas:document.getElementById('new-cas').value.trim(),inci:document.getElementById('new-inci').value.trim(),ifra:'',personal:'',advisors:[]};db.push(item);save();refreshTypes();closeModal('modal-new');renderGrid();setTimeout(()=>openDrawer(item.id),100);}
 /* ── FORMULA ── */
 function makeEmptyRow(){return{ingId:'',concentration:'',amount:'',unit:'g',reason:''};}
-function makeFormula(){return{id:fmlNextId++,group:currentGroup,name:(currentGroup==='base'?'香基配方':'單體原料配方'),perfumer:'',date:new Date().toISOString().slice(0,10),weather:'',temp:'',alcoholG:'',designNote:'',rows:Array.from({length:MIN_ROWS},makeEmptyRow)};}
+function makeFormula(){return{id:fmlNextId++,name:'新配方',perfumer:'',date:new Date().toISOString().slice(0,10),weather:'',temp:'',alcoholG:'',designNote:'',rows:Array.from({length:MIN_ROWS},makeEmptyRow)};}
 function renderFormulaList(){
   const el=document.getElementById('formula-list');
-  const list=currentFormulas();
-  if(!list.length){el.innerHTML='<div class="formula-empty-sidebar">尚無'+groupLabel()+'配方，點右上「＋ 新增」建立</div>';return;}
-  el.innerHTML=list.map(f=>`<div class="formula-item${currentFmlId===f.id?' active':''}" onclick="selectFormula(${f.id})"><div class="fi-name">${esc(f.name||'（未命名）')}</div><div class="fi-meta">${f.date||'—'} · ${f.rows.filter(r=>r.ingId).length} 種原料</div></div>`).join('');
+  if(!formulas.length){el.innerHTML='<div class="formula-empty-sidebar">尚無配方，點右上「＋ 新增」建立</div>';return;}
+  el.innerHTML=formulas.map(f=>`<div class="formula-item${currentFmlId===f.id?' active':''}" onclick="selectFormula(${f.id})"><div class="fi-name">${esc(f.name||'（未命名）')}</div><div class="fi-meta">${f.date||'—'} · ${f.rows.filter(r=>r.ingId).length} 種原料</div></div>`).join('');
 }
-function newFormula(){const f=makeFormula();formulas.push(f);currentFmlId=f.id;syncCurrentId();saveFml();renderFormulaList();renderFormulaEditor();}
-function selectFormula(id){currentFmlId=id;syncCurrentId();renderFormulaList();renderFormulaEditor();}
+function newFormula(){const f=makeFormula();formulas.push(f);currentFmlId=f.id;saveFml();renderFormulaList();renderFormulaEditor();}
+function selectFormula(id){currentFmlId=id;renderFormulaList();renderFormulaEditor();}
 function currentFml(){return formulas.find(f=>f.id===currentFmlId);}
-function ingOptions(selId){return`<option value="">— 選擇${groupLabel()} —</option>`+currentDb().map(d=>`<option value="${d.id}"${d.id==selId?' selected':''}>${esc(d.en)}${d.cn?' ('+esc(d.cn)+')':''}</option>`).join('');}
-function calcTotals(f){let molG=0;f.rows.forEach(r=>{if(r.amount&&r.unit==='g')molG+=parseFloat(r.amount)||0;});const alcG=parseFloat(f.alcoholG)||0;return{molG,alcG,totalG:molG+alcG};}
-function rowPct(r,totalG){if(!r.amount||!totalG||r.unit==='滴')return'—';return((parseFloat(r.amount)||0)/totalG*100).toFixed(2)+'%';}
+function ingOptions(selId){
+  const sorted=[...db].sort((a,b)=>(a.en||'').localeCompare(b.en||'', 'en', {sensitivity:'base'}));
+  return`<option value="">— 選擇原料 —</option>`+sorted.map(d=>`<option value="${d.id}"${d.id==selId?' selected':''}>${esc(d.en)}${d.cn?' ('+esc(d.cn)+')':''}</option>`).join('');
+}
+function calcTotals(f){
+  let molG=0,totalDrops=0;
+  (f.rows||[]).forEach(r=>{
+    const amt=parseFloat(r.amount)||0;
+    if(!amt)return;
+    if(r.unit==='滴') totalDrops+=amt;
+    else molG+=amt;
+  });
+  const alcG=parseFloat(f.alcoholG)||0;
+  return{molG,totalDrops,alcG,totalG:molG+alcG};
+}
+function rowPct(r,totals){
+  const amt=parseFloat(r.amount)||0;
+  if(!amt)return'—';
+  if(r.unit==='滴'){
+    if(!totals.totalDrops)return'—';
+    return(amt/totals.totalDrops*100).toFixed(2)+'%';
+  }
+  if(!totals.molG)return'—';
+  return(amt/totals.molG*100).toFixed(2)+'%';
+}
 function renderFormulaEditor(){
   const f=currentFml();if(!f)return;
-  const{molG,alcG,totalG}=calcTotals(f);
+  const totals=calcTotals(f);
+  const{molG,totalDrops,alcG,totalG}=totals;
   const molPct=totalG?(molG/totalG*100).toFixed(1)+'%':'—';
   const alcPct=totalG&&alcG?(alcG/totalG*100).toFixed(1)+'%':'—';
   const rowsHtml=f.rows.map((r,i)=>{
     const ing=db.find(d=>d.id==r.ingId);
     const noteBadges=ing?(ing.note||[]).map(n=>`<span class="it-badge badge-${n}">${n}</span>`).join(''):'';
-    return`<tr><td class="it-num">${i+1}</td><td style="min-width:190px"><select class="it-select" onchange="fmlRowChange(${i},'ingId',this.value)">${ingOptions(r.ingId)}</select>${noteBadges}</td><td><input class="it-conc" value="${esc(r.concentration||'')}" placeholder="10%" onchange="fmlRowChange(${i},'concentration',this.value)"></td><td style="white-space:nowrap"><input class="it-num-input" type="number" inputmode="decimal" min="0" step="0.001" value="${esc(r.amount)}" placeholder="0" oninput="fmlRowChange(${i},'amount',this.value)"><select class="it-unit" onchange="fmlRowChange(${i},'unit',this.value)"><option value="g"${r.unit==='g'?' selected':''}>g</option><option value="滴"${r.unit==='滴'?' selected':''}>滴</option></select></td><td class="it-pct">${rowPct(r,totalG)}</td><td><input class="it-reason" value="${esc(r.reason||'')}" placeholder="選用此原料的原因…" onchange="fmlRowChange(${i},'reason',this.value)"></td><td><button class="it-del" onclick="fmlDelRow(${i})" title="移除此行">✕</button></td></tr>`;
+    return`<tr><td class="it-num">${i+1}</td><td style="min-width:190px"><select class="it-select" onchange="fmlRowChange(${i},'ingId',this.value)">${ingOptions(r.ingId)}</select>${noteBadges}</td><td><input class="it-conc" value="${esc(r.concentration||'')}" placeholder="10%" onchange="fmlRowChange(${i},'concentration',this.value)"></td><td style="white-space:nowrap"><input class="it-num-input" type="number" inputmode="decimal" min="0" step="0.001" value="${esc(r.amount)}" placeholder="0" oninput="fmlRowChange(${i},'amount',this.value)"><select class="it-unit" onchange="fmlRowChange(${i},'unit',this.value)"><option value="g"${r.unit==='g'?' selected':''}>g</option><option value="滴"${r.unit==='滴'?' selected':''}>滴</option></select></td><td class="it-pct">${rowPct(r,totals)}</td><td><input class="it-reason" value="${esc(r.reason||'')}" placeholder="選用此原料的原因…" onchange="fmlRowChange(${i},'reason',this.value)"></td><td><button class="it-del" onclick="fmlDelRow(${i})" title="移除此行">✕</button></td></tr>`;
   }).join('');
   document.getElementById('formula-main').innerHTML=`
     <div class="fe-section">
@@ -560,10 +568,10 @@ function renderFormulaEditor(){
       <textarea class="fe-input fe-textarea" placeholder="描述這款香水的設計概念、情感氛圍、靈感來源、目標香調方向…" oninput="fmlMeta('designNote',this.value)">${esc(f.designNote||'')}</textarea>
     </div>
     <div class="fe-section">
-      <div class="fe-section-title">${groupLabel()}配方表</div>
+      <div class="fe-section-title">原料配方表</div>
       <div class="ing-table-wrap">
         <table class="ing-table">
-          <thead><tr><th>#</th><th>${groupLabel()}</th><th>原料濃度</th><th>用量 / 單位</th><th style="text-align:right;min-width:60px">佔比 %</th><th>選用原因</th><th></th></tr></thead>
+          <thead><tr><th>#</th><th>原料</th><th>原料濃度</th><th>用量 / 單位</th><th style="text-align:right;min-width:70px">佔比 %</th><th>選用原因</th><th></th></tr></thead>
           <tbody id="ing-tbody">${rowsHtml}</tbody>
         </table>
       </div>
@@ -571,7 +579,7 @@ function renderFormulaEditor(){
     </div>
     <div class="fe-section">
       <div class="fe-section-title">配方統計</div>
-      <div class="formula-stats" id="fml-stats">${buildStats(f,molG,alcG,totalG,molPct,alcPct)}</div>
+      <div class="formula-stats" id="fml-stats">${buildStats(f,molG,totalDrops,alcG,totalG,molPct,alcPct)}</div>
     </div>
     <div class="formula-action-bar">
       <button class="btn-formula-save" onclick="saveFormula()">儲存配方</button>
@@ -582,16 +590,17 @@ function renderFormulaEditor(){
       <span class="formula-saved-flash" id="fml-submit-flash" style="opacity:1;color:var(--ink-faint)"></span>
     </div>`;
 }
-function buildStats(f,molG,alcG,totalG,molPct,alcPct){return`<div class="stat-card"><div class="stat-label">香料總克數</div><div class="stat-val accent">${molG.toFixed(3)}g</div><div class="stat-sub">佔成品 ${molPct}</div></div><div class="stat-card"><div class="stat-label">酒精克數</div><div class="stat-val">${alcG.toFixed(3)}g</div><div class="stat-sub">佔成品 ${alcPct}</div></div><div class="stat-card"><div class="stat-label">香水總克數</div><div class="stat-val accent">${totalG.toFixed(3)}g</div><div class="stat-sub">香料 + 酒精</div></div><div class="stat-card"><div class="stat-label">使用原料數</div><div class="stat-val">${f.rows.filter(r=>r.ingId).length}</div><div class="stat-sub">已選擇原料行</div></div>`;}
+function buildStats(f,molG,totalDrops,alcG,totalG,molPct,alcPct){return`<div class="stat-card"><div class="stat-label">香料總克數</div><div class="stat-val accent">${molG.toFixed(3)}g</div><div class="stat-sub">g 欄位比例以香料總克數計算</div></div><div class="stat-card"><div class="stat-label">香料總滴數</div><div class="stat-val accent">${totalDrops.toFixed(0)}滴</div><div class="stat-sub">滴數欄位比例以總滴數計算</div></div><div class="stat-card"><div class="stat-label">酒精克數</div><div class="stat-val">${alcG.toFixed(3)}g</div><div class="stat-sub">佔成品 ${alcPct}</div></div><div class="stat-card"><div class="stat-label">香水總克數</div><div class="stat-val accent">${totalG.toFixed(3)}g</div><div class="stat-sub">香料 g + 酒精 g</div></div><div class="stat-card"><div class="stat-label">使用原料數</div><div class="stat-val">${f.rows.filter(r=>r.ingId).length}</div><div class="stat-sub">已選擇原料行</div></div>`;}
 function refreshStats(){
   const f=currentFml();if(!f)return;
-  const{molG,alcG,totalG}=calcTotals(f);
+  const totals=calcTotals(f);
+  const{molG,totalDrops,alcG,totalG}=totals;
   const molPct=totalG?(molG/totalG*100).toFixed(1)+'%':'—';
   const alcPct=totalG&&alcG?(alcG/totalG*100).toFixed(1)+'%':'—';
-  const el=document.getElementById('fml-stats');if(el)el.innerHTML=buildStats(f,molG,alcG,totalG,molPct,alcPct);
+  const el=document.getElementById('fml-stats');if(el)el.innerHTML=buildStats(f,molG,totalDrops,alcG,totalG,molPct,alcPct);
   const tbody=document.getElementById('ing-tbody');if(!tbody)return;
   const trs=tbody.querySelectorAll('tr');
-  f.rows.forEach((r,i)=>{const tr=trs[i];if(!tr)return;const td=tr.querySelectorAll('td')[4];if(td)td.textContent=rowPct(r,totalG);});
+  f.rows.forEach((r,i)=>{const tr=trs[i];if(!tr)return;const td=tr.querySelectorAll('td')[4];if(td)td.textContent=rowPct(r,totals);});
 }
 function fmlMeta(key,val){const f=currentFml();if(!f)return;f[key]=val;if(key==='name')renderFormulaList();}
 function fmlRowChange(i,key,val){const f=currentFml();if(!f)return;f.rows[i][key]=val;if(key==='amount'||key==='unit'||key==='ingId')refreshStats();}
@@ -607,13 +616,14 @@ function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function serializeCurrentFormula(){
   const f=currentFml();
   if(!f)return null;
+  const totals=calcTotals(f);
   return {
     source:'H.Fugue 調香台 Organ',
-    materialGroup:groupLabel(),
     submittedAt:new Date().toISOString(),
+    totals,
     formula:{...f, rows:(f.rows||[]).map((r,i)=>{
       const ing=db.find(d=>String(d.id)===String(r.ingId));
-      return {...r, index:i+1, ingredientEn:ing?.en||'', ingredientCn:ing?.cn||'', ingredientCas:ing?.cas||'', ingredientType:ing?.type||[], ingredientNote:ing?.note||[]};
+      return {...r, index:i+1, rowPercent:rowPct(r,totals), ingredientEn:ing?.en||'', ingredientCn:ing?.cn||'', ingredientCas:ing?.cas||'', ingredientType:ing?.type||[], ingredientNote:ing?.note||[]};
     })}
   };
 }

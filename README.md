@@ -46,3 +46,10 @@ Final update 2026-05-04:
 - Added Google Apps Script submit endpoint to config.js
 - Removed visible Re./advisor suggestion section from Organ drawer
 - Body Spray concentration updated to 1–3%
+
+
+2026-05-04 unified formula update:
+- 調香台與配方表合併為單一資料庫／單一配方表。
+- 配方表原料選單依英文名稱 A-Z 排列。
+- 用量可選 g 或滴，並自動計算香料總克數、香料總滴數、酒精克數、香水總克數與 rowPercent。
+- AWARENESS 放入繪畫發想筆記欄備註；ETERNITY 放入音樂發想筆記欄備註。
