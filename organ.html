@@ -518,15 +518,15 @@ function ingOptions(selId){
   const sorted=[...db].sort((a,b)=>(a.en||'').localeCompare(b.en||'', 'en', {sensitivity:'base'}));
   return`<option value="">— 選擇原料 —</option>`+sorted.map(d=>`<option value="${d.id}"${d.id==selId?' selected':''}>${esc(d.en)}${d.cn?' ('+esc(d.cn)+')':''}</option>`).join('');
 }
-function concentrationFactor(raw){
+function concentrationPercent(raw){
   const s=String(raw||'').trim();
-  if(!s)return 1;
+  // 未填濃度時，視為 100% 原料。
+  if(!s)return 100;
   const m=s.match(/([0-9]+(?:\.[0-9]+)?)/);
-  if(!m)return 1;
+  if(!m)return 100;
   const n=parseFloat(m[1]);
-  if(!isFinite(n))return 1;
-  if(s.includes('%'))return n/100;
-  if(n>1)return n/100;
+  if(!isFinite(n))return 100;
+  // 此處採「百分比數值」計算：10% = 10，100% = 100。
   return n;
 }
 function calcTotals(f){
@@ -536,7 +536,7 @@ function calcTotals(f){
     if(!amt)return;
     if(r.unit==='滴'){
       totalDrops+=amt;
-      weightedDrops += concentrationFactor(r.concentration) * amt;
+      weightedDrops += concentrationPercent(r.concentration) * amt;
     }else{
       molG+=amt;
     }
@@ -549,7 +549,7 @@ function rowPctNumber(r,totals){
   if(!amt)return null;
   if(r.unit==='滴'){
     if(!totals.weightedDrops)return null;
-    const weighted=concentrationFactor(r.concentration)*amt;
+    const weighted=concentrationPercent(r.concentration)*amt;
     return weighted/totals.weightedDrops*100;
   }
   if(!totals.molG)return null;
@@ -615,7 +615,7 @@ function renderFormulaEditor(){
       <span class="formula-saved-flash" id="fml-submit-flash" style="opacity:1;color:var(--ink-faint)"></span>
     </div>`;
 }
-function buildStats(f,molG,totalDrops,weightedDrops,perfumeCapacityG,totalG){return`<div class="stat-card"><div class="stat-label">香料總克數</div><div class="stat-val accent">${molG.toFixed(3)}g</div><div class="stat-sub">g 欄位比例以香料總克數計算</div></div><div class="stat-card"><div class="stat-label">香料總滴數</div><div class="stat-val accent">${totalDrops.toFixed(0)}滴</div><div class="stat-sub">滴數比例以「原料濃度 × 滴數」加權計算</div></div><div class="stat-card"><div class="stat-label">加權滴數總和</div><div class="stat-val">${weightedDrops.toFixed(3)}</div><div class="stat-sub">Σ（濃度 × 滴數）</div></div><div class="stat-card"><div class="stat-label">香水容量</div><div class="stat-val accent">${perfumeCapacityG.toFixed(3)}g</div><div class="stat-sub">依佔比換算每項原料 g 數</div></div><div class="stat-card"><div class="stat-label">使用原料數</div><div class="stat-val">${f.rows.filter(r=>r.ingId).length}</div><div class="stat-sub">已選擇原料行</div></div>`;}
+function buildStats(f,molG,totalDrops,weightedDrops,perfumeCapacityG,totalG){return`<div class="stat-card"><div class="stat-label">香料總克數</div><div class="stat-val accent">${molG.toFixed(3)}g</div><div class="stat-sub">g 欄位比例以香料總克數計算</div></div><div class="stat-card"><div class="stat-label">香料總滴數</div><div class="stat-val accent">${totalDrops.toFixed(0)}滴</div><div class="stat-sub">滴數比例以「原料濃度百分比 × 滴數」加權計算</div></div><div class="stat-card"><div class="stat-label">濃度加權滴數總和</div><div class="stat-val">${weightedDrops.toFixed(3)}</div><div class="stat-sub">Σ（原料濃度百分比 × 滴數）</div></div><div class="stat-card"><div class="stat-label">香水容量</div><div class="stat-val accent">${perfumeCapacityG.toFixed(3)}g</div><div class="stat-sub">依佔比換算每項原料 g 數</div></div><div class="stat-card"><div class="stat-label">使用原料數</div><div class="stat-val">${f.rows.filter(r=>r.ingId).length}</div><div class="stat-sub">已選擇原料行</div></div>`;}
 function refreshStats(){
   const f=currentFml();if(!f)return;
   const totals=calcTotals(f);
