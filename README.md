@@ -28,3 +28,9 @@ Final update 2026-05-04:
 - Removed redundant original scent pyramid image.
 - Changed visible KPIA香基 wording to 香基 where applicable.
 - Updated service worker cache version.
+
+
+2026-05-04 integrated final package:
+- Replaced HLA lifecycle image with redesigned newborn/life stages infographic
+- Added fragrance pyramid image (triangle layout, Middle label)
+- Updated service worker cache version
