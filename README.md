@@ -40,3 +40,9 @@ Final update 2026-05-04:
 - 體香露改為體香噴霧，濃度 1–3%。
 - 調香台 Re. 敘述已刪除。
 - 配方送出仍需在 config.js 設定 SUBMIT_ENDPOINT。
+
+
+2026-05-04 update:
+- Added Google Apps Script submit endpoint to config.js
+- Removed visible Re./advisor suggestion section from Organ drawer
+- Body Spray concentration updated to 1–3%

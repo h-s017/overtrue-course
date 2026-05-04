@@ -480,7 +480,6 @@ function renderDrawerFields(){
     <div class="field-group"><div class="field-label">香調類型（可自訂，Enter新增）</div><div class="tag-select" id="type-chips-d">${typeChips}</div><input class="field-input" style="margin-top:6px" placeholder="輸入香調名稱後按 Enter…" onkeydown="if(event.key==='Enter')addCustomType(this)"></div>
     <div class="field-divider"></div>
     <div class="section-personal"><div class="section-header">🌿 我的聞香感受</div><textarea class="field-input field-textarea" oninput="draft.personal=this.value">${esc(d.personal||'')}</textarea></div>
-    <div class="field-group"><div class="advisors-header"><span class="advisors-title">💬 建議記錄</span><button class="btn-add-advisor" onclick="addAdvisor()">＋ 新增建議者</button></div><div class="advisors-list" id="advisors-list">${advHtml}</div></div>
     <div class="field-divider"></div>
     <div class="field-row"><div class="field-group"><div class="field-label">INCI Name</div><input class="field-input field-mono" value="${esc(d.inci||'')}" oninput="draft.inci=this.value"></div><div class="field-group"><div class="field-label">CAS Number</div><input class="field-input field-mono" value="${esc(d.cas||'')}" oninput="draft.cas=this.value"></div></div>
     <div class="field-group"><div class="field-label">IFRA 建議（第51版）</div><textarea class="field-input field-textarea field-mono" style="min-height:60px;font-size:11px" oninput="draft.ifra=this.value">${esc(d.ifra||'')}</textarea></div>`;

@@ -1,4 +1,3 @@
 window.HFUGUE_CONFIG = {
-  // 貼上 Google Apps Script Web App URL 或 Firebase Function URL
-  SUBMIT_ENDPOINT: ''
+  SUBMIT_ENDPOINT: 'https://script.google.com/macros/s/AKfycbyue9QbgwV5xQQljLo6LiSzfP_rXsHL2mia72_WACBN89LA1X1sTDrYTG1WpAcQ5mooCg/exec'
 };
