@@ -20,3 +20,11 @@ window.HFUGUE_CONFIG = {
 ```
 
 未設定時，送出按鈕會自動下載 JSON 備份。
+
+
+Final update 2026-05-04:
+- Updated introduction copy.
+- Replaced HLA lifecycle image with corrected newborn scent text.
+- Removed redundant original scent pyramid image.
+- Changed visible KPIA香基 wording to 香基 where applicable.
+- Updated service worker cache version.
