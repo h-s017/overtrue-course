@@ -53,3 +53,11 @@ Final update 2026-05-04:
 - 配方表原料選單依英文名稱 A-Z 排列。
 - 用量可選 g 或滴，並自動計算香料總克數、香料總滴數、酒精克數、香水總克數與 rowPercent。
 - AWARENESS 放入繪畫發想筆記欄備註；ETERNITY 放入音樂發想筆記欄備註。
+
+
+2026-05-04 formula update:
+- All KPIA labels renamed to 香基 throughout organ.html
+- 酒精用量 renamed 香水容量
+- Drop percentages use 原料濃度 × 滴數 weighted formula
+- g percentages use g / total ingredient g
+- Target ingredient grams calculated from perfume capacity and row percent

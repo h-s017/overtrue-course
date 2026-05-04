@@ -173,6 +173,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 .it-num-input:focus{outline:none;border-color:var(--accent);background:#fff}
 .it-unit{padding:5px 6px;border:1px solid var(--border-dark);border-radius:6px;font-size:11px;background:var(--cream);color:var(--ink-light);font-family:'DM Sans',sans-serif;cursor:pointer}
 .it-unit:focus{outline:none;border-color:var(--accent)}
+.it-target-g{text-align:right;font-variant-numeric:tabular-nums;color:var(--accent);font-weight:500}
 .it-pct{font-size:12px;color:var(--accent);font-weight:500;text-align:right;white-space:nowrap;padding:0 6px;min-width:56px}
 .it-reason{width:100%;padding:5px 7px;border:1px solid var(--border-dark);border-radius:6px;font-size:12px;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-width:150px}
 .it-reason:focus{outline:none;border-color:var(--accent);background:#fff}
@@ -308,92 +309,92 @@ const SEED=[
 {id:27,en:"Polysantol",cn:"高級檀香醇",note:["Base"],type:["Woody"],alias:["Santol Pentenol"],cas:"107898-54-4",inci:"TRIMETHYLCYCLOPENTENYL DIMETHYLISOPENTENOL",ifra:"IFRA 第51版：Cat.4成品最高1.1%。Firmenich研發，Samsara（Guerlain）中大量使用。",personal:"① 木質明亮感、甜、回甘，類似玫瑰木。",advisors:[]},
 {id:28,en:"Beta Ionone",cn:"紫羅蘭酮",note:["Middle"],type:["Woody","Floral"],alias:["β-Ionone"],cas:"14901-07-6",inci:"BETA-IONONE",ifra:"IFRA 第51版：有限制，Cat.4限量請查最新IFRA文件。α-Ionone與β-Ionone需區分。",personal:"① 乾燥木質感、松木、松子感。",advisors:[]}
 ];
-const KPIA_BASES=[
-{id:1001,en:'Bitter Lemon',cn:'苦檸檬',note:['Top'],type:['香基','Citrus'],alias:['KPIA 01'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1002,en:'Citron Fruit',cn:'香櫞',note:['Top'],type:['香基','Citrus'],alias:['KPIA 02'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1003,en:'Grapefruit',cn:'葡萄柚',note:['Top'],type:['香基','Citrus'],alias:['KPIA 03'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1004,en:'Bergamot',cn:'佛手柑',note:['Top'],type:['香基','Citrus'],alias:['KPIA 04'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1005,en:'Yuzu',cn:'柚子',note:['Top'],type:['香基','Citrus'],alias:['KPIA 05'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1006,en:'Lime',cn:'萊姆',note:['Top'],type:['香基','Citrus'],alias:['KPIA 06'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1007,en:'Tangerine',cn:'橘子',note:['Top'],type:['香基','Citrus'],alias:['KPIA 07'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1008,en:'Orange',cn:'柳橙',note:['Top'],type:['香基','Citrus'],alias:['KPIA 08'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1009,en:'Cucumber',cn:'小黃瓜',note:['Top'],type:['香基','Fresh'],alias:['KPIA 09'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1010,en:'Fig',cn:'無花果',note:['Top'],type:['香基','Fruity'],alias:['KPIA 10'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1011,en:'Green Tea',cn:'綠茶',note:['Top'],type:['香基','Green'],alias:['KPIA 11'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1012,en:'Lily',cn:'百合',note:['Middle'],type:['香基','Floral'],alias:['KPIA 12'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1013,en:'Muguet',cn:'鈴蘭',note:['Middle'],type:['香基','Floral'],alias:['KPIA 13'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1014,en:'Jasmine',cn:'茉莉',note:['Middle'],type:['香基','Floral'],alias:['KPIA 14'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1015,en:'Tuberose',cn:'晚香玉',note:['Middle'],type:['香基','White Floral'],alias:['KPIA 15'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1016,en:'Rose',cn:'玫瑰',note:['Middle'],type:['香基','Floral'],alias:['KPIA 16'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1017,en:'Rose de Mai',cn:'五月玫瑰',note:['Middle'],type:['香基','Floral'],alias:['KPIA 17'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1018,en:'Ylang Ylang',cn:'依蘭',note:['Middle'],type:['香基','Floral'],alias:['KPIA 18'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1019,en:'Gardenia',cn:'梔子花',note:['Middle'],type:['香基','White Floral'],alias:['KPIA 19'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1020,en:'Geranium',cn:'天竺葵',note:['Middle'],type:['香基','Floral'],alias:['KPIA 20'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1021,en:'Freesia',cn:'小蒼蘭',note:['Middle'],type:['香基','Floral'],alias:['KPIA 21'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1022,en:'Violet',cn:'紫羅蘭',note:['Middle'],type:['香基','Powdery'],alias:['KPIA 22'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1023,en:'Magnolia',cn:'木蘭',note:['Middle'],type:['香基','Floral'],alias:['KPIA 23'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1024,en:'Lilac',cn:'丁香花',note:['Middle'],type:['香基','Floral'],alias:['KPIA 24'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1025,en:'Linden Blossom',cn:'椴樹花',note:['Middle'],type:['香基','Floral'],alias:['KPIA 25'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1026,en:'Orange Blossom',cn:'橙花',note:['Middle'],type:['香基','Floral'],alias:['KPIA 26'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1027,en:'Carnation',cn:'康乃馨',note:['Middle'],type:['香基','Floral'],alias:['KPIA 27'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1028,en:'Apple',cn:'蘋果',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 28'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1029,en:'Raspberry',cn:'覆盆子',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 29'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1030,en:'Cassis Fruit',cn:'黑醋栗果',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 30'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1031,en:'Strawberry',cn:'草莓',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 31'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1032,en:'Cherry',cn:'櫻桃',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 32'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1033,en:'Riesling',cn:'麗絲玲葡萄酒感',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 33'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1034,en:'Dewberry',cn:'黑莓類果實',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 34'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1035,en:'Blackberry',cn:'黑莓',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 35'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1036,en:'Lychee',cn:'荔枝',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 36'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1037,en:'Apricot',cn:'杏桃',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 37'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1038,en:'Pineapple',cn:'鳳梨',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 38'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1039,en:'Mango',cn:'芒果',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 39'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1040,en:'Peach',cn:'桃子',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 40'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1041,en:'Pear',cn:'梨子',note:['Middle'],type:['香基','Fruity'],alias:['KPIA 41'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1042,en:'Tomato Leaf',cn:'番茄葉',note:['Middle'],type:['香基','Green'],alias:['KPIA 42'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1043,en:'Ivy',cn:'常春藤',note:['Middle'],type:['香基','Green'],alias:['KPIA 43'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1044,en:'Herb',cn:'草本',note:['Middle'],type:['香基','Herbal'],alias:['KPIA 44'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1045,en:'Rosemary',cn:'迷迭香',note:['Middle'],type:['香基','Herbal'],alias:['KPIA 45'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1046,en:'Lavender',cn:'薰衣草',note:['Middle'],type:['香基','Aromatic'],alias:['KPIA 46'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1047,en:'Green',cn:'綠葉調',note:['Middle'],type:['香基','Green'],alias:['KPIA 47'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1048,en:'Marine',cn:'海洋調',note:['Middle'],type:['香基','Marine'],alias:['KPIA 48'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1049,en:'Aldehyde',cn:'醛香',note:['Middle'],type:['香基','Aldehydic'],alias:['KPIA 49'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1050,en:'Cinnamon',cn:'肉桂',note:['Middle'],type:['香基','Spicy'],alias:['KPIA 50'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1051,en:'Ginger',cn:'薑',note:['Middle'],type:['香基','Spicy'],alias:['KPIA 51'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1052,en:'Balsam',cn:'香脂',note:['Middle'],type:['香基','Balsamic'],alias:['KPIA 52'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1053,en:'Spices',cn:'綜合辛香料',note:['Middle'],type:['香基','Spicy'],alias:['KPIA 53'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1054,en:'Sandalwood',cn:'檀香',note:['Base'],type:['香基','Woody'],alias:['KPIA 54'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1055,en:'Whitewood',cn:'白木質',note:['Base'],type:['香基','Woody'],alias:['KPIA 55'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1056,en:'Cedarwood',cn:'雪松',note:['Base'],type:['香基','Woody'],alias:['KPIA 56'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1057,en:'Rosewood',cn:'花梨木',note:['Base'],type:['香基','Woody'],alias:['KPIA 57'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1058,en:'Patchouli',cn:'廣藿香',note:['Base'],type:['香基','Woody'],alias:['KPIA 58'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1059,en:'Vetiver',cn:'岩蘭草',note:['Base'],type:['香基','Woody'],alias:['KPIA 59'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1060,en:'Hinoki',cn:'檜木',note:['Base'],type:['香基','Woody'],alias:['KPIA 60'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1061,en:'Oak',cn:'橡木',note:['Base'],type:['香基','Woody'],alias:['KPIA 61'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1062,en:'Musk',cn:'麝香',note:['Base'],type:['香基','Musky'],alias:['KPIA 62'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1063,en:'White Musk',cn:'白麝香',note:['Base'],type:['香基','Musky'],alias:['KPIA 63'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1064,en:'Amber',cn:'琥珀',note:['Base'],type:['香基','Amber'],alias:['KPIA 64'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1065,en:'White Amber',cn:'白琥珀',note:['Base'],type:['香基','Amber'],alias:['KPIA 65'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1066,en:'Civet Cat',cn:'靈貓感',note:['Base'],type:['香基','Animalic'],alias:['KPIA 66'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1067,en:'Beaver',cn:'海狸香感',note:['Base'],type:['香基','Animalic'],alias:['KPIA 67'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1068,en:'Leather',cn:'皮革',note:['Base'],type:['香基','Leathery'],alias:['KPIA 68'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1069,en:'Vanilla',cn:'香草',note:['Base'],type:['香基','Gourmand'],alias:['KPIA 69'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1070,en:'Coconut',cn:'椰子',note:['Base'],type:['香基','Gourmand'],alias:['KPIA 70'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1071,en:'Iris',cn:'鳶尾',note:['Base'],type:['香基','Powdery'],alias:['KPIA 71'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1072,en:'Orchid',cn:'蘭花',note:['Base'],type:['香基','Floral'],alias:['KPIA 72'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1073,en:'Tonka Bean',cn:'零陵香豆',note:['Base'],type:['香基','Gourmand'],alias:['KPIA 73'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1074,en:'Tobacco',cn:'菸草',note:['Base'],type:['香基','Tobacco'],alias:['KPIA 74'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1075,en:'Hay',cn:'乾草',note:['Base'],type:['香基','Dry'],alias:['KPIA 75'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1076,en:'Sampaquita',cn:'阿拉伯茉莉／菲律賓茉莉',note:['Base'],type:['香基','Floral'],alias:['KPIA 76'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1077,en:'Cacao',cn:'可可',note:['Base'],type:['香基','Gourmand'],alias:['KPIA 77'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1078,en:'Praline',cn:'糖漬堅果糖',note:['Base'],type:['香基','Gourmand'],alias:['KPIA 78'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1079,en:'Coffee',cn:'咖啡',note:['Base'],type:['香基','Gourmand'],alias:['KPIA 79'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
-{id:1080,en:'Moss',cn:'苔蘚',note:['Base'],type:['香基','Mossy'],alias:['KPIA 80'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]}
+const BASES_80=[
+{id:1001,en:'Bitter Lemon',cn:'苦檸檬',note:['Top'],type:['香基','Citrus'],alias:['香基 01'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1002,en:'Citron Fruit',cn:'香櫞',note:['Top'],type:['香基','Citrus'],alias:['香基 02'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1003,en:'Grapefruit',cn:'葡萄柚',note:['Top'],type:['香基','Citrus'],alias:['香基 03'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1004,en:'Bergamot',cn:'佛手柑',note:['Top'],type:['香基','Citrus'],alias:['香基 04'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1005,en:'Yuzu',cn:'柚子',note:['Top'],type:['香基','Citrus'],alias:['香基 05'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1006,en:'Lime',cn:'萊姆',note:['Top'],type:['香基','Citrus'],alias:['香基 06'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1007,en:'Tangerine',cn:'橘子',note:['Top'],type:['香基','Citrus'],alias:['香基 07'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1008,en:'Orange',cn:'柳橙',note:['Top'],type:['香基','Citrus'],alias:['香基 08'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1009,en:'Cucumber',cn:'小黃瓜',note:['Top'],type:['香基','Fresh'],alias:['香基 09'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1010,en:'Fig',cn:'無花果',note:['Top'],type:['香基','Fruity'],alias:['香基 10'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1011,en:'Green Tea',cn:'綠茶',note:['Top'],type:['香基','Green'],alias:['香基 11'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1012,en:'Lily',cn:'百合',note:['Middle'],type:['香基','Floral'],alias:['香基 12'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1013,en:'Muguet',cn:'鈴蘭',note:['Middle'],type:['香基','Floral'],alias:['香基 13'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1014,en:'Jasmine',cn:'茉莉',note:['Middle'],type:['香基','Floral'],alias:['香基 14'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1015,en:'Tuberose',cn:'晚香玉',note:['Middle'],type:['香基','White Floral'],alias:['香基 15'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1016,en:'Rose',cn:'玫瑰',note:['Middle'],type:['香基','Floral'],alias:['香基 16'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1017,en:'Rose de Mai',cn:'五月玫瑰',note:['Middle'],type:['香基','Floral'],alias:['香基 17'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1018,en:'Ylang Ylang',cn:'依蘭',note:['Middle'],type:['香基','Floral'],alias:['香基 18'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1019,en:'Gardenia',cn:'梔子花',note:['Middle'],type:['香基','White Floral'],alias:['香基 19'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1020,en:'Geranium',cn:'天竺葵',note:['Middle'],type:['香基','Floral'],alias:['香基 20'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1021,en:'Freesia',cn:'小蒼蘭',note:['Middle'],type:['香基','Floral'],alias:['香基 21'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1022,en:'Violet',cn:'紫羅蘭',note:['Middle'],type:['香基','Powdery'],alias:['香基 22'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1023,en:'Magnolia',cn:'木蘭',note:['Middle'],type:['香基','Floral'],alias:['香基 23'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1024,en:'Lilac',cn:'丁香花',note:['Middle'],type:['香基','Floral'],alias:['香基 24'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1025,en:'Linden Blossom',cn:'椴樹花',note:['Middle'],type:['香基','Floral'],alias:['香基 25'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1026,en:'Orange Blossom',cn:'橙花',note:['Middle'],type:['香基','Floral'],alias:['香基 26'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1027,en:'Carnation',cn:'康乃馨',note:['Middle'],type:['香基','Floral'],alias:['香基 27'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1028,en:'Apple',cn:'蘋果',note:['Middle'],type:['香基','Fruity'],alias:['香基 28'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1029,en:'Raspberry',cn:'覆盆子',note:['Middle'],type:['香基','Fruity'],alias:['香基 29'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1030,en:'Cassis Fruit',cn:'黑醋栗果',note:['Middle'],type:['香基','Fruity'],alias:['香基 30'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1031,en:'Strawberry',cn:'草莓',note:['Middle'],type:['香基','Fruity'],alias:['香基 31'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1032,en:'Cherry',cn:'櫻桃',note:['Middle'],type:['香基','Fruity'],alias:['香基 32'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1033,en:'Riesling',cn:'麗絲玲葡萄酒感',note:['Middle'],type:['香基','Fruity'],alias:['香基 33'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1034,en:'Dewberry',cn:'黑莓類果實',note:['Middle'],type:['香基','Fruity'],alias:['香基 34'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1035,en:'Blackberry',cn:'黑莓',note:['Middle'],type:['香基','Fruity'],alias:['香基 35'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1036,en:'Lychee',cn:'荔枝',note:['Middle'],type:['香基','Fruity'],alias:['香基 36'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1037,en:'Apricot',cn:'杏桃',note:['Middle'],type:['香基','Fruity'],alias:['香基 37'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1038,en:'Pineapple',cn:'鳳梨',note:['Middle'],type:['香基','Fruity'],alias:['香基 38'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1039,en:'Mango',cn:'芒果',note:['Middle'],type:['香基','Fruity'],alias:['香基 39'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1040,en:'Peach',cn:'桃子',note:['Middle'],type:['香基','Fruity'],alias:['香基 40'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1041,en:'Pear',cn:'梨子',note:['Middle'],type:['香基','Fruity'],alias:['香基 41'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1042,en:'Tomato Leaf',cn:'番茄葉',note:['Middle'],type:['香基','Green'],alias:['香基 42'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1043,en:'Ivy',cn:'常春藤',note:['Middle'],type:['香基','Green'],alias:['香基 43'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1044,en:'Herb',cn:'草本',note:['Middle'],type:['香基','Herbal'],alias:['香基 44'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1045,en:'Rosemary',cn:'迷迭香',note:['Middle'],type:['香基','Herbal'],alias:['香基 45'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1046,en:'Lavender',cn:'薰衣草',note:['Middle'],type:['香基','Aromatic'],alias:['香基 46'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1047,en:'Green',cn:'綠葉調',note:['Middle'],type:['香基','Green'],alias:['香基 47'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1048,en:'Marine',cn:'海洋調',note:['Middle'],type:['香基','Marine'],alias:['香基 48'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1049,en:'Aldehyde',cn:'醛香',note:['Middle'],type:['香基','Aldehydic'],alias:['香基 49'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1050,en:'Cinnamon',cn:'肉桂',note:['Middle'],type:['香基','Spicy'],alias:['香基 50'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1051,en:'Ginger',cn:'薑',note:['Middle'],type:['香基','Spicy'],alias:['香基 51'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1052,en:'Balsam',cn:'香脂',note:['Middle'],type:['香基','Balsamic'],alias:['香基 52'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1053,en:'Spices',cn:'綜合辛香料',note:['Middle'],type:['香基','Spicy'],alias:['香基 53'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1054,en:'Sandalwood',cn:'檀香',note:['Base'],type:['香基','Woody'],alias:['香基 54'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1055,en:'Whitewood',cn:'白木質',note:['Base'],type:['香基','Woody'],alias:['香基 55'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1056,en:'Cedarwood',cn:'雪松',note:['Base'],type:['香基','Woody'],alias:['香基 56'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1057,en:'Rosewood',cn:'花梨木',note:['Base'],type:['香基','Woody'],alias:['香基 57'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1058,en:'Patchouli',cn:'廣藿香',note:['Base'],type:['香基','Woody'],alias:['香基 58'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1059,en:'Vetiver',cn:'岩蘭草',note:['Base'],type:['香基','Woody'],alias:['香基 59'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1060,en:'Hinoki',cn:'檜木',note:['Base'],type:['香基','Woody'],alias:['香基 60'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1061,en:'Oak',cn:'橡木',note:['Base'],type:['香基','Woody'],alias:['香基 61'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1062,en:'Musk',cn:'麝香',note:['Base'],type:['香基','Musky'],alias:['香基 62'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1063,en:'White Musk',cn:'白麝香',note:['Base'],type:['香基','Musky'],alias:['香基 63'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1064,en:'Amber',cn:'琥珀',note:['Base'],type:['香基','Amber'],alias:['香基 64'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1065,en:'White Amber',cn:'白琥珀',note:['Base'],type:['香基','Amber'],alias:['香基 65'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1066,en:'Civet Cat',cn:'靈貓感',note:['Base'],type:['香基','Animalic'],alias:['香基 66'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1067,en:'Beaver',cn:'海狸香感',note:['Base'],type:['香基','Animalic'],alias:['香基 67'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1068,en:'Leather',cn:'皮革',note:['Base'],type:['香基','Leathery'],alias:['香基 68'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1069,en:'Vanilla',cn:'香草',note:['Base'],type:['香基','Gourmand'],alias:['香基 69'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1070,en:'Coconut',cn:'椰子',note:['Base'],type:['香基','Gourmand'],alias:['香基 70'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1071,en:'Iris',cn:'鳶尾',note:['Base'],type:['香基','Powdery'],alias:['香基 71'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1072,en:'Orchid',cn:'蘭花',note:['Base'],type:['香基','Floral'],alias:['香基 72'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1073,en:'Tonka Bean',cn:'零陵香豆',note:['Base'],type:['香基','Gourmand'],alias:['香基 73'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1074,en:'Tobacco',cn:'菸草',note:['Base'],type:['香基','Tobacco'],alias:['香基 74'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1075,en:'Hay',cn:'乾草',note:['Base'],type:['香基','Dry'],alias:['香基 75'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1076,en:'Sampaquita',cn:'阿拉伯茉莉／菲律賓茉莉',note:['Base'],type:['香基','Floral'],alias:['香基 76'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1077,en:'Cacao',cn:'可可',note:['Base'],type:['香基','Gourmand'],alias:['香基 77'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1078,en:'Praline',cn:'糖漬堅果糖',note:['Base'],type:['香基','Gourmand'],alias:['香基 78'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1079,en:'Coffee',cn:'咖啡',note:['Base'],type:['香基','Gourmand'],alias:['香基 79'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]},
+{id:1080,en:'Moss',cn:'苔蘚',note:['Base'],type:['香基','Mossy'],alias:['香基 80'],cas:'',inci:'',ifra:'80 種 Olfaction 練習香材／香基，用於聞香訓練與香調辨識。',personal:'',advisors:[]}
 ];
-function mergeKPIABases(){
+function mergeBases80(){
   const existing=new Set(db.map(d=>(d.en||'').toLowerCase()+'|'+(d.cn||'')));
   let changed=false;
-  KPIA_BASES.forEach(item=>{
+  BASES_80.forEach(item=>{
     const key=(item.en||'').toLowerCase()+'|'+(item.cn||'');
     if(!existing.has(key)){db.push({...item});changed=true;}
   });
@@ -406,7 +407,7 @@ let formulas=[],currentFmlId=null,deleteTarget=null,deleteType='ingredient';
 let newNotes=[],fmlNextId=1;
 function load(){
   try{const r=localStorage.getItem(DB_KEY);if(r){db=JSON.parse(r);migrate();}else{db=SEED.map(d=>({...d}));save();}}catch(e){db=SEED.map(d=>({...d}));}
-  mergeKPIABases();
+  mergeBases80();
   nextId=Math.max(...db.map(d=>d.id),99)+1;
   try{const r=localStorage.getItem(FML_KEY);if(r){formulas=JSON.parse(r);}formulas.forEach(f=>(f.rows||[]).forEach(row=>{if(row.concentration===undefined)row.concentration='';}));fmlNextId=Math.max(...formulas.map(f=>f.id),0)+1;}catch(e){formulas=[];}
   refreshTypes();
@@ -517,37 +518,61 @@ function ingOptions(selId){
   const sorted=[...db].sort((a,b)=>(a.en||'').localeCompare(b.en||'', 'en', {sensitivity:'base'}));
   return`<option value="">— 選擇原料 —</option>`+sorted.map(d=>`<option value="${d.id}"${d.id==selId?' selected':''}>${esc(d.en)}${d.cn?' ('+esc(d.cn)+')':''}</option>`).join('');
 }
+function concentrationFactor(raw){
+  const s=String(raw||'').trim();
+  if(!s)return 1;
+  const m=s.match(/([0-9]+(?:\.[0-9]+)?)/);
+  if(!m)return 1;
+  const n=parseFloat(m[1]);
+  if(!isFinite(n))return 1;
+  if(s.includes('%'))return n/100;
+  if(n>1)return n/100;
+  return n;
+}
 function calcTotals(f){
-  let molG=0,totalDrops=0;
+  let molG=0,totalDrops=0,weightedDrops=0;
   (f.rows||[]).forEach(r=>{
     const amt=parseFloat(r.amount)||0;
     if(!amt)return;
-    if(r.unit==='滴') totalDrops+=amt;
-    else molG+=amt;
+    if(r.unit==='滴'){
+      totalDrops+=amt;
+      weightedDrops += concentrationFactor(r.concentration) * amt;
+    }else{
+      molG+=amt;
+    }
   });
-  const alcG=parseFloat(f.alcoholG)||0;
-  return{molG,totalDrops,alcG,totalG:molG+alcG};
+  const perfumeCapacityG=parseFloat(f.perfumeCapacityG ?? f.alcoholG)||0;
+  return{molG,totalDrops,weightedDrops,perfumeCapacityG,totalG:perfumeCapacityG};
+}
+function rowPctNumber(r,totals){
+  const amt=parseFloat(r.amount)||0;
+  if(!amt)return null;
+  if(r.unit==='滴'){
+    if(!totals.weightedDrops)return null;
+    const weighted=concentrationFactor(r.concentration)*amt;
+    return weighted/totals.weightedDrops*100;
+  }
+  if(!totals.molG)return null;
+  return amt/totals.molG*100;
 }
 function rowPct(r,totals){
-  const amt=parseFloat(r.amount)||0;
-  if(!amt)return'—';
-  if(r.unit==='滴'){
-    if(!totals.totalDrops)return'—';
-    return(amt/totals.totalDrops*100).toFixed(2)+'%';
-  }
-  if(!totals.molG)return'—';
-  return(amt/totals.molG*100).toFixed(2)+'%';
+  const p=rowPctNumber(r,totals);
+  return p==null?'—':p.toFixed(2)+'%';
+}
+function rowTargetG(r,totals){
+  const p=rowPctNumber(r,totals);
+  const cap=totals.perfumeCapacityG||0;
+  if(p==null||!cap)return'—';
+  return (cap*p/100).toFixed(3)+'g';
 }
 function renderFormulaEditor(){
   const f=currentFml();if(!f)return;
   const totals=calcTotals(f);
-  const{molG,totalDrops,alcG,totalG}=totals;
-  const molPct=totalG?(molG/totalG*100).toFixed(1)+'%':'—';
-  const alcPct=totalG&&alcG?(alcG/totalG*100).toFixed(1)+'%':'—';
+  const{molG,totalDrops,weightedDrops,perfumeCapacityG,totalG}=totals;
   const rowsHtml=f.rows.map((r,i)=>{
     const ing=db.find(d=>d.id==r.ingId);
     const noteBadges=ing?(ing.note||[]).map(n=>`<span class="it-badge badge-${n}">${n}</span>`).join(''):'';
-    return`<tr><td class="it-num">${i+1}</td><td style="min-width:190px"><select class="it-select" onchange="fmlRowChange(${i},'ingId',this.value)">${ingOptions(r.ingId)}</select>${noteBadges}</td><td><input class="it-conc" value="${esc(r.concentration||'')}" placeholder="10%" onchange="fmlRowChange(${i},'concentration',this.value)"></td><td style="white-space:nowrap"><input class="it-num-input" type="number" inputmode="decimal" min="0" step="0.001" value="${esc(r.amount)}" placeholder="0" oninput="fmlRowChange(${i},'amount',this.value)"><select class="it-unit" onchange="fmlRowChange(${i},'unit',this.value)"><option value="g"${r.unit==='g'?' selected':''}>g</option><option value="滴"${r.unit==='滴'?' selected':''}>滴</option></select></td><td class="it-pct">${rowPct(r,totals)}</td><td><input class="it-reason" value="${esc(r.reason||'')}" placeholder="選用此原料的原因…" onchange="fmlRowChange(${i},'reason',this.value)"></td><td><button class="it-del" onclick="fmlDelRow(${i})" title="移除此行">✕</button></td></tr>`;
+    return`<tr><td class="it-num">${i+1}</td><td style="min-width:190px"><select class="it-select" onchange="fmlRowChange(${i},'ingId',this.value)">${ingOptions(r.ingId)}</select>${noteBadges}</td><td><input class="it-conc" value="${esc(r.concentration||'')}" placeholder="10%" onchange="fmlRowChange(${i},'concentration',this.value)"></td><td style="white-space:nowrap"><input class="it-num-input" type="number" inputmode="decimal" min="0" step="0.001" value="${esc(r.amount)}" placeholder="0" oninput="fmlRowChange(${i},'amount',this.value)"><select class="it-unit" onchange="fmlRowChange(${i},'unit',this.value)"><option value="g"${r.unit==='g'?' selected':''}>g</option><option value="滴"${r.unit==='滴'?' selected':''}>滴</option></select></td><td class="it-pct">${rowPct(r,totals)}</td><td class="it-target-g">${rowTargetG(r,totals)}</td><td><input class="it-reason" value="${esc(r.reason||'')}" placeholder="選用此原料的原因…" onchange="fmlRowChange(${i},'reason',this.value)"></td><td><button class="it-del" onclick="fmlDelRow(${i})" title="移除此行">✕</button></td></tr>`;
   }).join('');
   document.getElementById('formula-main').innerHTML=`
     <div class="fe-section">
@@ -560,7 +585,7 @@ function renderFormulaEditor(){
         <div class="fe-field"><div class="fe-label">調製日期</div><input class="fe-input" type="date" value="${esc(f.date||'')}" oninput="fmlMeta('date',this.value)"></div>
         <div class="fe-field"><div class="fe-label">天氣</div><input class="fe-input" value="${esc(f.weather||'')}" placeholder="晴 / 陰 / 雨…" oninput="fmlMeta('weather',this.value)"></div>
         <div class="fe-field"><div class="fe-label">室溫 (°C)</div><input class="fe-input" type="number" value="${esc(f.temp||'')}" placeholder="25" oninput="fmlMeta('temp',this.value)"></div>
-        <div class="fe-field"><div class="fe-label">酒精用量 (g)</div><input class="fe-input" type="number" min="0" step="0.001" value="${esc(f.alcoholG||'')}" placeholder="0" oninput="fmlMeta('alcoholG',this.value);refreshStats()"></div>
+        <div class="fe-field"><div class="fe-label">香水容量 (g)</div><input class="fe-input" type="number" min="0" step="0.001" value="${esc(f.perfumeCapacityG ?? f.alcoholG || '')}" placeholder="例如 50" oninput="fmlMeta('perfumeCapacityG',this.value);refreshStats()"></div>
       </div>
     </div>
     <div class="fe-section">
@@ -571,7 +596,7 @@ function renderFormulaEditor(){
       <div class="fe-section-title">原料配方表</div>
       <div class="ing-table-wrap">
         <table class="ing-table">
-          <thead><tr><th>#</th><th>原料</th><th>原料濃度</th><th>用量 / 單位</th><th style="text-align:right;min-width:70px">佔比 %</th><th>選用原因</th><th></th></tr></thead>
+          <thead><tr><th>#</th><th>原料</th><th>原料濃度</th><th>用量 / 單位</th><th style="text-align:right;min-width:70px">佔比 %</th><th style="text-align:right;min-width:90px">目標原料 g</th><th>選用原因</th><th></th></tr></thead>
           <tbody id="ing-tbody">${rowsHtml}</tbody>
         </table>
       </div>
@@ -579,7 +604,7 @@ function renderFormulaEditor(){
     </div>
     <div class="fe-section">
       <div class="fe-section-title">配方統計</div>
-      <div class="formula-stats" id="fml-stats">${buildStats(f,molG,totalDrops,alcG,totalG,molPct,alcPct)}</div>
+      <div class="formula-stats" id="fml-stats">${buildStats(f,molG,totalDrops,weightedDrops,perfumeCapacityG,totalG)}</div>
     </div>
     <div class="formula-action-bar">
       <button class="btn-formula-save" onclick="saveFormula()">儲存配方</button>
@@ -590,20 +615,23 @@ function renderFormulaEditor(){
       <span class="formula-saved-flash" id="fml-submit-flash" style="opacity:1;color:var(--ink-faint)"></span>
     </div>`;
 }
-function buildStats(f,molG,totalDrops,alcG,totalG,molPct,alcPct){return`<div class="stat-card"><div class="stat-label">香料總克數</div><div class="stat-val accent">${molG.toFixed(3)}g</div><div class="stat-sub">g 欄位比例以香料總克數計算</div></div><div class="stat-card"><div class="stat-label">香料總滴數</div><div class="stat-val accent">${totalDrops.toFixed(0)}滴</div><div class="stat-sub">滴數欄位比例以總滴數計算</div></div><div class="stat-card"><div class="stat-label">酒精克數</div><div class="stat-val">${alcG.toFixed(3)}g</div><div class="stat-sub">佔成品 ${alcPct}</div></div><div class="stat-card"><div class="stat-label">香水總克數</div><div class="stat-val accent">${totalG.toFixed(3)}g</div><div class="stat-sub">香料 g + 酒精 g</div></div><div class="stat-card"><div class="stat-label">使用原料數</div><div class="stat-val">${f.rows.filter(r=>r.ingId).length}</div><div class="stat-sub">已選擇原料行</div></div>`;}
+function buildStats(f,molG,totalDrops,weightedDrops,perfumeCapacityG,totalG){return`<div class="stat-card"><div class="stat-label">香料總克數</div><div class="stat-val accent">${molG.toFixed(3)}g</div><div class="stat-sub">g 欄位比例以香料總克數計算</div></div><div class="stat-card"><div class="stat-label">香料總滴數</div><div class="stat-val accent">${totalDrops.toFixed(0)}滴</div><div class="stat-sub">滴數比例以「原料濃度 × 滴數」加權計算</div></div><div class="stat-card"><div class="stat-label">加權滴數總和</div><div class="stat-val">${weightedDrops.toFixed(3)}</div><div class="stat-sub">Σ（濃度 × 滴數）</div></div><div class="stat-card"><div class="stat-label">香水容量</div><div class="stat-val accent">${perfumeCapacityG.toFixed(3)}g</div><div class="stat-sub">依佔比換算每項原料 g 數</div></div><div class="stat-card"><div class="stat-label">使用原料數</div><div class="stat-val">${f.rows.filter(r=>r.ingId).length}</div><div class="stat-sub">已選擇原料行</div></div>`;}
 function refreshStats(){
   const f=currentFml();if(!f)return;
   const totals=calcTotals(f);
-  const{molG,totalDrops,alcG,totalG}=totals;
-  const molPct=totalG?(molG/totalG*100).toFixed(1)+'%':'—';
-  const alcPct=totalG&&alcG?(alcG/totalG*100).toFixed(1)+'%':'—';
-  const el=document.getElementById('fml-stats');if(el)el.innerHTML=buildStats(f,molG,totalDrops,alcG,totalG,molPct,alcPct);
+  const{molG,totalDrops,weightedDrops,perfumeCapacityG,totalG}=totals;
+  const el=document.getElementById('fml-stats');if(el)el.innerHTML=buildStats(f,molG,totalDrops,weightedDrops,perfumeCapacityG,totalG);
   const tbody=document.getElementById('ing-tbody');if(!tbody)return;
   const trs=tbody.querySelectorAll('tr');
-  f.rows.forEach((r,i)=>{const tr=trs[i];if(!tr)return;const td=tr.querySelectorAll('td')[4];if(td)td.textContent=rowPct(r,totals);});
+  f.rows.forEach((r,i)=>{
+    const tr=trs[i];if(!tr)return;
+    const tds=tr.querySelectorAll('td');
+    if(tds[4])tds[4].textContent=rowPct(r,totals);
+    if(tds[5])tds[5].textContent=rowTargetG(r,totals);
+  });
 }
 function fmlMeta(key,val){const f=currentFml();if(!f)return;f[key]=val;if(key==='name')renderFormulaList();}
-function fmlRowChange(i,key,val){const f=currentFml();if(!f)return;f.rows[i][key]=val;if(key==='amount'||key==='unit'||key==='ingId')refreshStats();}
+function fmlRowChange(i,key,val){const f=currentFml();if(!f)return;f.rows[i][key]=val;if(key==='amount'||key==='unit'||key==='ingId'||key==='concentration')refreshStats();}
 function fmlAddRow(){const f=currentFml();if(!f)return;f.rows.push(makeEmptyRow());renderFormulaEditor();}
 function fmlDelRow(i){const f=currentFml();if(!f)return;if(f.rows.length<=1)return;f.rows.splice(i,1);renderFormulaEditor();}
 function saveFormula(){saveFml();renderFormulaList();const fl=document.getElementById('fml-saved-flash');if(fl){fl.classList.add('show');setTimeout(()=>fl.classList.remove('show'),2000);}}
@@ -623,7 +651,7 @@ function serializeCurrentFormula(){
     totals,
     formula:{...f, rows:(f.rows||[]).map((r,i)=>{
       const ing=db.find(d=>String(d.id)===String(r.ingId));
-      return {...r, index:i+1, rowPercent:rowPct(r,totals), ingredientEn:ing?.en||'', ingredientCn:ing?.cn||'', ingredientCas:ing?.cas||'', ingredientType:ing?.type||[], ingredientNote:ing?.note||[]};
+      return {...r, index:i+1, rowPercent:rowPct(r,totals), rowPercentNumber:rowPctNumber(r,totals), targetIngredientG:rowTargetG(r,totals), ingredientEn:ing?.en||'', ingredientCn:ing?.cn||'', ingredientCas:ing?.cas||'', ingredientType:ing?.type||[], ingredientNote:ing?.note||[]};
     })}
   };
 }
