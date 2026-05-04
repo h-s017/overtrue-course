@@ -34,3 +34,9 @@ Final update 2026-05-04:
 - Replaced HLA lifecycle image with redesigned newborn/life stages infographic
 - Added fragrance pyramid image (triangle layout, Middle label)
 - Updated service worker cache version
+
+
+2026-05-04 update:
+- 體香露改為體香噴霧，濃度 1–3%。
+- 調香台 Re. 敘述已刪除。
+- 配方送出仍需在 config.js 設定 SUBMIT_ENDPOINT。
