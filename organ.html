@@ -585,7 +585,7 @@ function renderFormulaEditor(){
         <div class="fe-field"><div class="fe-label">調製日期</div><input class="fe-input" type="date" value="${esc(f.date||'')}" oninput="fmlMeta('date',this.value)"></div>
         <div class="fe-field"><div class="fe-label">天氣</div><input class="fe-input" value="${esc(f.weather||'')}" placeholder="晴 / 陰 / 雨…" oninput="fmlMeta('weather',this.value)"></div>
         <div class="fe-field"><div class="fe-label">室溫 (°C)</div><input class="fe-input" type="number" value="${esc(f.temp||'')}" placeholder="25" oninput="fmlMeta('temp',this.value)"></div>
-        <div class="fe-field"><div class="fe-label">香水容量 (g)</div><input class="fe-input" type="number" min="0" step="0.001" value="${esc(f.perfumeCapacityG ?? f.alcoholG || '')}" placeholder="例如 50" oninput="fmlMeta('perfumeCapacityG',this.value);refreshStats()"></div>
+        <div class="fe-field"><div class="fe-label">香水容量 (g)</div><input class="fe-input" type="number" min="0" step="0.001" value="${esc((f.perfumeCapacityG ?? f.alcoholG) || '')}" placeholder="例如 50" oninput="fmlMeta('perfumeCapacityG',this.value);refreshStats()"></div>
       </div>
     </div>
     <div class="fe-section">

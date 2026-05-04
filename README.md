@@ -61,3 +61,11 @@ Final update 2026-05-04:
 - Drop percentages use 原料濃度 × 滴數 weighted formula
 - g percentages use g / total ingredient g
 - Target ingredient grams calculated from perfume capacity and row percent
+
+
+2026-05-04 修正：
+- 修復調香台 JavaScript 語法錯誤（香水容量欄位）。
+- 調香台全部 KPIA 顯示文字已移除，香基統一顯示為「香基」。
+- 保留配方表：g/滴單位、濃度百分比加權滴數比例、香水容量換算目標原料 g、送出給 Hana 老師。
+- 繪畫發想筆記欄 placeholder：AWARENESS｜調香，是察覺世界的一種方式。
+- 音樂發想筆記欄 placeholder：ETERNITY｜氣味，像靈魂一樣，會長久的停留。
